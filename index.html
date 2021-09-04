@@ -1,14 +1,103 @@
 <html>
 	<head>
+		<!--Conexión con Bootstrap-->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
 		<title>Ciudadanos de 4 patas</title>
 
 	</head>
 	<body>
-		<h1>Ciudadanos de 4 patas</h1>
+		<h1 align="Center">Ciudadanos de 4 patas</h1>
 
-		<form></form>
+		<!--Formulario de registro-->
+		<h3>Crear Una Mascota</h3>
+		<form>
+			<!--Container para el registro-->
+			<div class="d-grid gap-3">
+	  			<div class="p-2 bg-light border">
+	  				<!--Campos del Registro-->
+	  				<label>Fecha de Registro</label>
+					<input id="date-input" type="date" required/>
+		
+					<label>Nombre del Propietario</label>
+					<input id="name-input" type="text" required/>
 
+					<label>Nombre de la mascota</label>
+					<input id="petName-input" type="text"required/>
 
+					<label>Microchip</label>
+					<input id="microchip-input" type="number" min="0"/>
+					<br/> <br/>
+
+					<label>Especie</label>
+					<select>
+						<option selected disabled>Seleccionar</option>
+						<option>Canino</option>
+						<option>Felino</option>
+					</select>
+			
+					<label>Sexo</label>
+					<select>
+						<option selected disabled>Seleccionar</option>
+						<option>Macho</option>
+						<option>Hembra</option>
+					</select>
+					
+					<label>Tama&ntilde;o</label>
+					<select>
+						<option selected disabled>Seleccionar</option>
+						<option>Miniatura</option>
+						<option>Pequeño</option>
+						<option>Mediano</option>
+						<option>Grande</option>
+					</select>
+
+					<label>Potencialmente peligroso</label>
+					<select>
+						<option selected disabled>Seleccionar</option>
+						<option>Si</option>
+						<option>No</option>
+					</select>
+					
+					<label>Esterilizado</label>
+					<select>
+						<option selected disabled>Seleccionar</option>
+						<option>Si</option>
+						<option>No</option>
+					</select>
+
+					<label>Localidad</label>
+					<select>
+						<option selected disabled>Seleccionar</option>
+						<option>USAQUEN</option>
+						<option>CHAPINERO</option>
+						<option>SANTA FE</option>
+						<option>SAN CRISTOBAL</option>
+						<option>USME</option>
+						<option>TUNJUELITO</option>
+						<option>BOSA</option>
+						<option>KENNEDY</option>
+						<option>FONTIBON</option>
+						<option>ENGATIVA</option>
+						<option>SUBA</option>
+						<option>B. UNIDOS</option>
+						<option>TEUSAQUILLO</option>
+						<option>LOS MARTIRES</option>
+						<option>A. NARINO</option>
+						<option>P. ARANDA</option>
+						<option>LA CANDELARIA</option>
+						<option>R. URIBE</option>
+						<option>C. BOLIVAR</option>
+						<option>SUMAPAZ</option>
+						<option>MUNICIPIOS ALEDAÑOS BOGOTA D.C.</option>
+					</select>
+					<br/><br/>
+					<!--Botón de registro del form-->
+					<input id="create-button" type="submit" value="Registrar">
+				</div>
+			</div>
+		</form>	
+		<!--Scripts-->
+		<script src="./js/main.js"></script>
 	</body>
 </html>
