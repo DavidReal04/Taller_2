@@ -11,13 +11,13 @@
 
 		<!--Formulario de registro-->
 		<h3>Crear Una Mascota</h3>
-		<form>
+		<form >
 			<!--Container para el registro-->
 			<div class="d-grid gap-3">
 	  			<div class="p-2 bg-light border">
 	  				<!--Campos del Registro-->
 	  				<label>Fecha de Registro</label>
-					<input id="date-input" type="date" required/>
+					<input name="Fecha" id="date-input" type="date" required/>
 		
 					<label>Nombre del Propietario</label>
 					<input id="name-input" type="text" required/>
@@ -30,21 +30,21 @@
 					<br/> <br/>
 
 					<label>Especie</label>
-					<select>
+					<select id="petspecie-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Canino</option>
 						<option>Felino</option>
 					</select>
 			
 					<label>Sexo</label>
-					<select>
+					<select id="petsex-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Macho</option>
 						<option>Hembra</option>
 					</select>
 					
 					<label>Tama&ntilde;o</label>
-					<select>
+					<select id="petsize-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Miniatura</option>
 						<option>Pequeño</option>
@@ -53,21 +53,21 @@
 					</select>
 
 					<label>Potencialmente peligroso</label>
-					<select>
+					<select id="petdanger-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Si</option>
 						<option>No</option>
 					</select>
 					
 					<label>Esterilizado</label>
-					<select>
+					<select id="petsterilized-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Si</option>
 						<option>No</option>
 					</select>
 
 					<label>Localidad</label>
-					<select>
+					<select id="petneighborhood-select">
 						<option selected disabled>Seleccionar</option>
 						<option>USAQUEN</option>
 						<option>CHAPINERO</option>
@@ -96,7 +96,23 @@
 					<input id="create-button" type="submit" value="Registrar">
 				</div>
 			</div>
-		</form>	
+		</form>
+		<br/>
+		<table class="table table-bordered border-primary">
+			<thead>
+				<th class="column-header">Fecha de Registro</th>
+				<th class="column-header">Nombre del Propietario</th>
+				<th class="column-header">Nombre de la Mascota</th>
+				<th class="column-header">Microchip</th>
+				<th class="column-header">Especie</th>
+				<th class="column-header">Sexo</th>
+				<th class="column-header">Tama&ntilde;o</th>
+				<th class="column-header">Potencialmente Peligroso</th>
+				<th class="column-header">Esterilizado</th>
+				<th class="column-header">Localidad</th>
+			</thead>
+			
+		</table>
 		<!--Scripts-->
 		<script src="./js/main.js"></script>
 	</body>
