@@ -11,63 +11,63 @@
 
 		<!--Formulario de registro-->
 		<h3>Crear Una Mascota</h3>
-		<form >
+		<form>
 			<!--Container para el registro-->
 			<div class="d-grid gap-3">
 	  			<div class="p-2 bg-light border">
 	  				<!--Campos del Registro-->
 	  				<label>Fecha de Registro</label>
-					<input name="Fecha" id="date-input" type="date" required/>
+					<input name="date" id="date-input" type="date" required/>
 		
 					<label>Nombre del Propietario</label>
-					<input id="name-input" type="text" required/>
+					<input name="name"id="name-input" type="text" required/>
 
 					<label>Nombre de la mascota</label>
-					<input id="petName-input" type="text"required/>
+					<input name="petName" id="petName-input" type="text"required/>
 
 					<label>Microchip</label>
-					<input id="microchip-input" type="number" min="0"/>
+					<input name="microchip" id="microchip-input" type="number" min="0"/>
 					<br/> <br/>
 
 					<label>Especie</label>
-					<select id="petspecie-select">
+					<select name="specie" id="petspecie-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Canino</option>
 						<option>Felino</option>
 					</select>
 			
 					<label>Sexo</label>
-					<select id="petsex-select">
+					<select name="sex" id="petsex-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Macho</option>
 						<option>Hembra</option>
 					</select>
 					
 					<label>Tama&ntilde;o</label>
-					<select id="petsize-select">
+					<select name="size" id="petsize-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Miniatura</option>
-						<option>Pequeño</option>
+						<option>Peque&ntilde;o</option>
 						<option>Mediano</option>
 						<option>Grande</option>
 					</select>
 
 					<label>Potencialmente peligroso</label>
-					<select id="petdanger-select">
+					<select name="dangerous" id="petdanger-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Si</option>
 						<option>No</option>
 					</select>
 					
 					<label>Esterilizado</label>
-					<select id="petsterilized-select">
+					<select name="sterilized" id="petsterilized-select">
 						<option selected disabled>Seleccionar</option>
 						<option>Si</option>
 						<option>No</option>
 					</select>
 
 					<label>Localidad</label>
-					<select id="petneighborhood-select">
+					<select name="neighborhood" id="petneighborhood-select">
 						<option selected disabled>Seleccionar</option>
 						<option>USAQUEN</option>
 						<option>CHAPINERO</option>
@@ -93,7 +93,7 @@
 					</select>
 					<br/><br/>
 					<!--Botón de registro del form-->
-					<input id="create-button" type="submit" value="Registrar">
+					<button id="create-button" type="submit" class="btn btn-primary">Registrar</button> 
 				</div>
 			</div>
 		</form>
@@ -111,8 +111,8 @@
 				<th class="column-header">Esterilizado</th>
 				<th class="column-header">Localidad</th>
 			</thead>
-			
-		</table>
+		<div id="results"></div>
+		</table>		
 		<!--Scripts-->
 		<script src="./js/main.js"></script>
 	</body>
