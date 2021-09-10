@@ -1,3 +1,4 @@
+var flag=false;
 document.getElementById("create-button").onclick = function () {
 	
 	let dateInput = document.getElementById("date-input").value;
@@ -24,8 +25,37 @@ document.getElementById("create-button").onclick = function () {
 	let petSterilized = document.getElementById("petsterilized-select").value;
 	document.cookie = "petSterilized=" + petSterilized;
 
-	let petNeigborhood = document.getElementById("petneigborhood-select").value;
-	document.cookie = "petNeigborhood=" + petNeigborhood;
+	let petNeighborhood = document.getElementById("petneighborhood-select").value;
+	document.cookie = "petNeighborhood=" + petNeighborhood;
+
+	flag = true;
+	/*let pet = {
+		dateInput: dateInput,
+		ownerName: ownerName,
+		petName: petName,
+		petSpecies: petSpecies,
+		petSex: petSex,
+		petSize: petSize,
+		petDanger: petDanger,
+		petSterilized: petSterilized,
+		petNeigborhood: petNeigborhood
+		
+	}*/
 };
 	
+if(flag==true){
+
+	console.log("Entro al if");
+	let pet = document.cookie;
+
+	console.log(decodeURIComponent(pet));
+
+	Object.keys(pet).forEach((key) => {
+		console.log(key);
+		let td = document.createElement("td");
+		td.innerHTML = pet[key];
+		tr.appendChild(td);
+	});	
+}
+
 	
