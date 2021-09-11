@@ -1,4 +1,4 @@
-var flag=false;
+const flag=true;
 document.getElementById("create-button").onclick = function () {
 	
 	let dateInput = document.getElementById("date-input").value;
@@ -9,6 +9,9 @@ document.getElementById("create-button").onclick = function () {
 
 	let petName = document.getElementById("petName-input").value;
 	document.cookie = "petName=" + petName;
+
+	let microchip = document.getElementById("microchip-input").value;
+	document.cookie = "microchip=" + microchip;
 
 	let petSpecies = document.getElementById("petspecie-select").value;
 	document.cookie = "petSpecies=" + petSpecies;
@@ -28,34 +31,42 @@ document.getElementById("create-button").onclick = function () {
 	let petNeighborhood = document.getElementById("petneighborhood-select").value;
 	document.cookie = "petNeighborhood=" + petNeighborhood;
 
-	flag = true;
-	/*let pet = {
-		dateInput: dateInput,
-		ownerName: ownerName,
-		petName: petName,
-		petSpecies: petSpecies,
-		petSex: petSex,
-		petSize: petSize,
-		petDanger: petDanger,
-		petSterilized: petSterilized,
-		petNeigborhood: petNeigborhood
-		
-	}*/
-};
+	flag = false;
 	
-if(flag==true){
+};
 
-	console.log("Entro al if");
-	let pet = document.cookie;
-
-	console.log(decodeURIComponent(pet));
-
+function readPet () {
+	let pet = {
+		dateInput: getCookie("dateInput"),
+		ownerName: getCookie("ownerName"),
+		petName: getCookie("petName"),
+		microchip: getCookie("microchip"),
+		petSpecies: getCookie("petSpecies"),
+		petSex: getCookie("petSex"),
+		petSize: getCookie("petSize"),
+		petDanger: getCookie("petDanger"),
+		petSterilized: getCookie("petSterilized"),
+		petNeighborhood: getCookie("petNeighborhood")
+	}
+	let tr = document.createElement("tr");
 	Object.keys(pet).forEach((key) => {
 		console.log(key);
 		let td = document.createElement("td");
 		td.innerHTML = pet[key];
 		tr.appendChild(td);
-	});	
+	});
+	let tdActions = document.createElement("td");
+	document.getElementById("body-table").appendChild(tr);
 }
 
-	
+//Función extraída de W3Schools
+function getCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1);
+		if (c.indexOf(nameEQ) != -1) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+} 
