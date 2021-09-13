@@ -1,4 +1,4 @@
-const flag=true;
+var rowId = 0;
 document.getElementById("create-button").onclick = function () {
 	
 	let dateInput = document.getElementById("date-input").value;
@@ -31,7 +31,7 @@ document.getElementById("create-button").onclick = function () {
 	let petNeighborhood = document.getElementById("petneighborhood-select").value;
 	document.cookie = "petNeighborhood=" + petNeighborhood;
 
-	flag = false;
+	readPet();
 	
 };
 
@@ -48,9 +48,16 @@ function readPet () {
 		petSterilized: getCookie("petSterilized"),
 		petNeighborhood: getCookie("petNeighborhood")
 	}
+	rowId += 1;
+
 	let tr = document.createElement("tr");
+	tr.setAttribute("id", "row-" + rowId);
+
+	let tdId = document.createElement("td");
+	tdId.innerHTML = rowId;
+	tr.appendChild(tdId);
+	
 	Object.keys(pet).forEach((key) => {
-		console.log(key);
 		let td = document.createElement("td");
 		td.innerHTML = pet[key];
 		tr.appendChild(td);
