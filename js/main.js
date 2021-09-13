@@ -1,54 +1,52 @@
 var rowId = 0;
-document.getElementById("create-button").onclick = function () {
-	
-	let dateInput = document.getElementById("date-input").value;
-	document.cookie = "dateInput=" + dateInput;
+var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
+const dbName = "petDB";
+var request = indexedDB.open(dbName, 1);
 
-	let ownerName = document.getElementById("name-input").value;
-	document.cookie = "ownerName=" + ownerName;
-
-	let petName = document.getElementById("petName-input").value;
-	document.cookie = "petName=" + petName;
-
-	let microchip = document.getElementById("microchip-input").value;
-	document.cookie = "microchip=" + microchip;
-
-	let petSpecies = document.getElementById("petspecie-select").value;
-	document.cookie = "petSpecies=" + petSpecies;
-
-	let petSex= document.getElementById("petsex-select").value;
-	document.cookie = "petSex=" + petSex;
-
-	let petSize = document.getElementById("petsize-select").value;
-	document.cookie = "petSize=" + petSize;
-
-	let petDanger = document.getElementById("petdanger-select").value;
-	document.cookie = "petDanger=" + petDanger;
-
-	let petSterilized = document.getElementById("petsterilized-select").value;
-	document.cookie = "petSterilized=" + petSterilized;
-
-	let petNeighborhood = document.getElementById("petneighborhood-select").value;
-	document.cookie = "petNeighborhood=" + petNeighborhood;
-
-	readPet();
-	
+request.onerror = function(event) {
+  console.log("Database error");
 };
 
-function readPet () {
-	let pet = {
-		dateInput: getCookie("dateInput"),
-		ownerName: getCookie("ownerName"),
-		petName: getCookie("petName"),
-		microchip: getCookie("microchip"),
-		petSpecies: getCookie("petSpecies"),
-		petSex: getCookie("petSex"),
-		petSize: getCookie("petSize"),
-		petDanger: getCookie("petDanger"),
-		petSterilized: getCookie("petSterilized"),
-		petNeighborhood: getCookie("petNeighborhood")
-	}
+request.onupgradeneeded = function(event) {
+  var db = event.target.result;
+  var objectStore = db.createObjectStore("pets", { keyPath: "id" });
+  objectStore.createIndex("petNameInput", "petNameInput", { unique: false });
+};
+
+var request = indexedDB.open(dbName, 1);
+request.onsuccess = function(event) {
+	var db = event.target.result;
+	var tx = db.transaction("pets");
+	var objectStore = tx.objectStore("pets");
+	objectStore.getAll().onsuccess = function(event) {
+	  console.log(event.target.result);
+	  rowId = event.target.result.length;
+	};
+};
+
+document.getElementById("create-button").onclick = function () {
 	rowId += 1;
+
+	let pet = {
+		dateInput: document.getElementById("date-input").value,
+		ownerName: document.getElementById("name-input").value,
+		petName: document.getElementById("petName-input").value,
+		microchip: document.getElementById("microchip-input").value,
+		petSpecies: document.getElementById("petspecie-select").value,
+		petSex:document.getElementById("petsex-select").value,
+		petSize: document.getElementById("petsize-select").value,
+		petDanger: document.getElementById("petdanger-select").value,
+		petSterilized: document.getElementById("petsterilized-select").value,
+		petNeighborhood: document.getElementById("petneighborhood-select").value
+	}
+	
+	var request = indexedDB.open(dbName, 1);
+ 	request.onsuccess = function(event) {
+    	var db = event.target.result;
+    	var customerObjectStore = db.transaction("pets", "readwrite").objectStore("pets");
+	    pet["id"] = rowId;
+	    customerObjectStore.add(pet);
+  	};
 
 	let tr = document.createElement("tr");
 	tr.setAttribute("id", "row-" + rowId);
@@ -56,24 +54,18 @@ function readPet () {
 	let tdId = document.createElement("td");
 	tdId.innerHTML = rowId;
 	tr.appendChild(tdId);
-	
+
 	Object.keys(pet).forEach((key) => {
+		console.log(key);
+
 		let td = document.createElement("td");
 		td.innerHTML = pet[key];
-		tr.appendChild(td);
-	});
-	let tdActions = document.createElement("td");
-	document.getElementById("body-table").appendChild(tr);
-}
 
-//Función extraída de W3Schools
-function getCookie(name) {
-	var nameEQ = name + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0;i < ca.length;i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1);
-		if (c.indexOf(nameEQ) != -1) return c.substring(nameEQ.length,c.length);
-	}
-	return null;
-} 
+		tr.appendChild(td);
+
+	});
+
+	document.getElementById("body-table").appendChild(tr);
+};
+
+ 

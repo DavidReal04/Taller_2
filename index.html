@@ -11,14 +11,15 @@
 
 		<!--Formulario de registro-->
 		<h3>Crear Una Mascota</h3>
-		<form>
-			<!--Container para el registro-->
-			<div class="d-grid gap-3">
-	  			<div class="p-2 bg-light border">
-	  				<!--Campos del Registro-->
-	  				<label>Fecha de Registro</label>
+	
+		<!--Container para el registro-->
+		<div class="d-grid gap-3">
+			<div class="p-2 bg-light border">
+				<form>
+					<!--Campos del Registro-->
+					<label>Fecha de Registro</label>
 					<input name="date" id="date-input" type="date" required/>
-		
+
 					<label>Nombre del Propietario</label>
 					<input name="name"id="name-input" type="text" required/>
 
@@ -35,7 +36,7 @@
 						<option>Canino</option>
 						<option>Felino</option>
 					</select>
-			
+
 					<label>Sexo</label>
 					<select name="sex" id="petsex-select">
 						<option selected disabled>No Registrado</option>
@@ -51,7 +52,7 @@
 						<option>Mediano</option>
 						<option>Grande</option>
 					</select>
-
+					<br/> <br/>
 					<label>Potencialmente peligroso</label>
 					<select name="dangerous" id="petdanger-select">
 						<option selected disabled>No Registrado</option>
@@ -92,14 +93,18 @@
 						<option>MUNICIPIOS ALEDA&Ntilde;OS BOGOTA D.C.</option>
 					</select>
 					<br/><br/>
-					<!--Botón de registro del form-->
-					<button id="create-button" type="submit" class="btn btn-primary">Registrar</button> 
-				</div>
+				</form>
+				<!--Botón de registro-->
+				<button id="create-button" class="btn btn-primary">Registrar</button> 
 			</div>
-		</form>
+		</div>
 		<br/>
-		<table class="table table-bordered border-primary">
+		<!--Tabla de registros-->
+		<h3>Lista de Mascotas</h3>
+		<div class="p-2 bg-light border">
+			<table class="table table-bordered border-primary">
 			<thead>
+				<th class="column-header column-header-id">ID</th>
 				<th class="column-header">Fecha de Registro</th>
 				<th class="column-header">Nombre del Propietario</th>
 				<th class="column-header">Nombre de la Mascota</th>
@@ -114,8 +119,10 @@
 			<tbody id="body-table">
 				
 			</tbody>
-		<div id="results"></div>
-		</table>		
+			<div id="results"></div>
+			</table>			
+		</div>
+		
 		<!--Scripts-->
 		<script src="./js/main.js"></script>
 	</body>
