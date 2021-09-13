@@ -102,24 +102,134 @@
 		<!--Tabla de registros-->
 		<h3>Lista de Mascotas</h3>
 		<div class="p-2 bg-light border">
-			<table class="table table-bordered border-primary">
-			<thead>
-				<th class="column-header column-header-id">ID</th>
-				<th class="column-header">Fecha de Registro</th>
-				<th class="column-header">Nombre del Propietario</th>
-				<th class="column-header">Nombre de la Mascota</th>
-				<th class="column-header">Microchip</th>
-				<th class="column-header">Especie</th>
-				<th class="column-header">Sexo</th>
-				<th class="column-header">Tama&ntilde;o</th>
-				<th class="column-header">Potencialmente Peligroso</th>
-				<th class="column-header">Esterilizado</th>
-				<th class="column-header">Localidad</th>
-			</thead>
-			<tbody id="body-table">
-				
-			</tbody>
-			<div id="results"></div>
+
+			<div class="container">
+				<div class="row">
+					<!--Filtros-->
+					<h4>Filtros</h4>
+			    	<div class="col">
+			    		<!--Filtros por especie-->
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="specie-check">
+						  <label class="form-check-label" for="specie-check"> Especie </label> 
+						</div>
+						<div class="form-check">
+			  				<input class="form-check-input" type="radio" name="specie" id="specie-canine-check" disabled>
+			  				<label class="form-check-label" for="specie">Canino</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="specie" id="specie-feline-check" disabled>
+							<label class="form-check-label" for="specie">Felino</label>
+						</div>
+			    	</div>
+			    	<div class="col">
+			      		<!--Filtros por sexo-->
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="sex-check">
+						  <label class="form-check-label" for="sex-check"> Sexo </label> 
+						</div>
+						<div class="form-check">
+			  				<input class="form-check-input" type="radio" name="sex" id="sex-male-check" disabled>
+			  				<label class="form-check-label" for="sex">Macho</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="sex" id="sex-female-check" disabled>
+							<label class="form-check-label" for="sex">Hembra</label>
+						</div>
+			    	</div>
+			    	<div class="col">
+			      		<!--Filtros por tamaño-->
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="size-check">
+						  <label class="form-check-label" for="size-check"> Tama&ntilde;o </label>
+						</div>
+						<div class="form-check">
+			  				<input class="form-check-input" type="radio" name="size" id="size-mini-check" disabled>
+			  				<label class="form-check-label" for="size">Miniatura</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="size" id="size-small-check" disabled>
+							<label class="form-check-label" for="size">Peque&ntilde;o</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="size" id="size-medium-check" disabled>
+							<label class="form-check-label" for="size">Mediano</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="size" id="size-big-check" disabled>
+							<label class="form-check-label" for="size">Grande</label>
+						</div>
+			    	</div>
+			    	<div class="col">
+			    		<!--Filtros por potencialmente peligroso-->
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="dangerous-check">
+						  <label class="form-check-label" for="dangerous-check"> Potencialmente Peligroso </label> 
+						</div>
+						<div class="form-check">
+			  				<input class="form-check-input" type="radio" name="dangerous" id="dangerous-yes-check" disabled>
+			  				<label class="form-check-label" for="dangerous">Si</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="dangerous" id="dangerous-no-check" disabled>
+							<label class="form-check-label" for="dangerous">No</label>
+						</div>
+			    	</div>
+			    	<div class="col">
+			      		<!--Filtros por microchip-->
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="microchip-check">
+						  <label class="form-check-label" for="microchip-check"> Microchip </label> 
+						</div>
+						<div class="form-check">
+			  				<input class="form-check-input" type="radio" name="microchip" id="microchip-yes-check" disabled>
+			  				<label class="form-check-label" for="microchip">Si</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="microchip" id="microchip-no-check" disabled>
+							<label class="form-check-label" for="microchip">No</label>
+						</div>
+			    	</div>
+			    	<div class="col">
+			      		<!--Filtros por Esterilizado-->
+						<div class="form-check">
+						  <input class="form-check-input" type="checkbox" value="" id="sterilized-check">
+						  <label class="form-check-label" for="sterilized-check"> Esterilizado </label> 
+						</div>
+						<div class="form-check">
+			  				<input class="form-check-input" type="radio" name="sterilized" id="sterilized-yes-check" disabled>
+			  				<label class="form-check-label" for="sterilized">Si</label>
+						</div>
+						<div class="form-check">
+							<input class="form-check-input" type="radio" name="sterilized" id="sterilized-no-check" disabled>
+							<label class="form-check-label" for="sterilized">No</label>
+						</div>
+			    	</div>
+			    	<!--Botón de filtros-->
+					<button id="filter-button" class="btn btn-primary">Aplicar Filtros</button> 
+			  </div>
+			</div>
+		</div>
+		<br/>
+		<div class="p-2 bg-light border">
+			<table class="table table-bordered border-primary table-sm">
+				<thead>
+					<th class="column-header column-header-id">ID</th>
+					<th class="column-header">Fecha de Registro</th>
+					<th class="column-header">Nombre del Propietario</th>
+					<th class="column-header">Nombre de la Mascota</th>
+					<th class="column-header">Microchip</th>
+					<th class="column-header">Especie</th>
+					<th class="column-header">Sexo</th>
+					<th class="column-header">Tama&ntilde;o</th>
+					<th class="column-header">Potencialmente Peligroso</th>
+					<th class="column-header">Esterilizado</th>
+					<th class="column-header">Localidad</th>
+				</thead>
+				<tbody id="body-table">
+					
+				</tbody>
+					<div id="results"></div>
 			</table>			
 		</div>
 		

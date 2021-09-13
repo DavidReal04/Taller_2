@@ -3,6 +3,7 @@ var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedD
 const dbName = "petDB";
 var request = indexedDB.open(dbName, 1);
 
+//Conection whith indexedDB
 request.onerror = function(event) {
   console.log("Database error");
 };
@@ -24,48 +25,209 @@ request.onsuccess = function(event) {
 	};
 };
 
+// New Exceptions
+class DateError extends Error {
+  constructor(message) {
+    super(message); 
+    this.name = "DateError"; 
+  }
+}
+class NameError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "NameError";
+  }
+}
+class PetNameError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "PetNameError";
+  }
+}
+//Add register to the list
 document.getElementById("create-button").onclick = function () {
-	rowId += 1;
+	try {
+		if(document.getElementById("date-input").value == ""){
+			throw new DateError("Ingrese Una Fecha de Registro");
+		}else if (document.getElementById("name-input").value == "") {
+			throw new NameError("Ingrese el Nombre de Propietario");
+		}else if (document.getElementById("petName-input").value == "") {
+			throw new PetNameError("Ingrese el Nombre de la Mascota");
+		}
 
-	let pet = {
-		dateInput: document.getElementById("date-input").value,
-		ownerName: document.getElementById("name-input").value,
-		petName: document.getElementById("petName-input").value,
-		microchip: document.getElementById("microchip-input").value,
-		petSpecies: document.getElementById("petspecie-select").value,
-		petSex:document.getElementById("petsex-select").value,
-		petSize: document.getElementById("petsize-select").value,
-		petDanger: document.getElementById("petdanger-select").value,
-		petSterilized: document.getElementById("petsterilized-select").value,
-		petNeighborhood: document.getElementById("petneighborhood-select").value
+		rowId += 1;
+
+		//Create object Pet
+		let pet = {
+			dateInput: document.getElementById("date-input").value,
+			ownerName: document.getElementById("name-input").value,
+			petName: document.getElementById("petName-input").value,
+			microchip: document.getElementById("microchip-input").value,
+			petSpecies: document.getElementById("petspecie-select").value,
+			petSex:document.getElementById("petsex-select").value,
+			petSize: document.getElementById("petsize-select").value,
+			petDanger: document.getElementById("petdanger-select").value,
+			petSterilized: document.getElementById("petsterilized-select").value,
+			petNeighborhood: document.getElementById("petneighborhood-select").value
+		}
+		
+		//Add register to the database
+		var request = indexedDB.open(dbName, 1);
+	 	request.onsuccess = function(event) {
+	    	var db = event.target.result;
+	    	var customerObjectStore = db.transaction("pets", "readwrite").objectStore("pets");
+		    pet["id"] = rowId;
+		    customerObjectStore.add(pet);
+	  	};
+
+	  	//Add object to the list
+		let tr = document.createElement("tr");
+		tr.setAttribute("id", "row-" + rowId);
+
+		let tdId = document.createElement("td");
+		tdId.innerHTML = rowId;
+		tr.appendChild(tdId);
+
+		Object.keys(pet).forEach((key) => {
+			console.log(key);
+
+			let td = document.createElement("td");
+			td.innerHTML = pet[key];
+
+			tr.appendChild(td);
+
+		});
+
+		document.getElementById("body-table").appendChild(tr);
+	} catch(e) {
+		alert(e.message);
 	}
-	
-	var request = indexedDB.open(dbName, 1);
- 	request.onsuccess = function(event) {
-    	var db = event.target.result;
-    	var customerObjectStore = db.transaction("pets", "readwrite").objectStore("pets");
-	    pet["id"] = rowId;
-	    customerObjectStore.add(pet);
-  	};
 
-	let tr = document.createElement("tr");
-	tr.setAttribute("id", "row-" + rowId);
-
-	let tdId = document.createElement("td");
-	tdId.innerHTML = rowId;
-	tr.appendChild(tdId);
-
-	Object.keys(pet).forEach((key) => {
-		console.log(key);
-
-		let td = document.createElement("td");
-		td.innerHTML = pet[key];
-
-		tr.appendChild(td);
-
-	});
-
-	document.getElementById("body-table").appendChild(tr);
 };
 
- 
+
+//List filters
+
+document.getElementById("specie-check").onclick = function(){
+
+	let specie = document.getElementById("specie-check");
+	let canine = document.getElementById("specie-canine-check");
+	let feline = document.getElementById("specie-feline-check");
+
+	if(specie.checked==true){
+		canine.disabled = false;	
+		canine.checked = true;
+		feline.disabled = false;
+	}else if(specie.checked==false){
+		canine.disabled = true;
+		feline.disabled = true;
+		canine.checked = false;
+		feline.checked = false;
+	}
+	
+}
+
+document.getElementById("sex-check").onclick = function(){
+
+	let sex = document.getElementById("sex-check");
+	let male = document.getElementById("sex-male-check");
+	let female = document.getElementById("sex-female-check");
+
+	if(sex.checked==true){
+		male.disabled = false;	
+		male.checked = true;
+		female.disabled = false;
+	}else if(sex.checked==false){
+		male.disabled = true;
+		female.disabled = true;
+		male.checked = false;
+		female.checked = false;
+	}
+	
+}
+
+document.getElementById("size-check").onclick = function(){
+	let size = document.getElementById("size-check");
+	let mini = document.getElementById("size-mini-check");
+	let small = document.getElementById("size-small-check");
+	let medium = document.getElementById("size-medium-check");
+	let big = document.getElementById("size-big-check");
+
+	if(size.checked==true){
+		mini.checked = true;
+		mini.disabled = false;
+		small.disabled = false;
+		medium.disabled = false;
+		big.disabled = false;
+	}else if(size.checked==false){
+		mini.disabled = true;
+		small.disabled = true;
+		medium.disabled = true;
+		big.disabled = true;
+		mini.checked = false;
+		small.checked = false;
+		medium.checked = false;
+		big.checked = false;
+	}
+}
+
+document.getElementById("dangerous-check").onclick = function () {
+	let dangerous = document.getElementById("dangerous-check");
+	let yes = document.getElementById("dangerous-yes-check");
+	let no = document.getElementById("dangerous-no-check");
+
+	if(dangerous.checked==true){
+		yes.disabled = false;	
+		yes.checked = true;
+		no.disabled = false;
+	}else if(dangerous.checked==false){
+		yes.disabled = true;
+		no.disabled = true;
+		yes.checked = false;
+		no.checked = false;
+	}
+}
+
+document.getElementById("microchip-check").onclick = function () {
+	let microchip = document.getElementById("microchip-check");
+	let yes = document.getElementById("microchip-yes-check");
+	let no = document.getElementById("microchip-no-check");
+
+	if(microchip.checked==true){
+		yes.disabled = false;	
+		yes.checked = true;
+		no.disabled = false;
+	}else if(microchip.checked==false){
+		yes.disabled = true;
+		no.disabled = true;
+		yes.checked = false;
+		no.checked = false;
+	}
+}
+
+document.getElementById("sterilized-check").onclick = function () {
+	let sterilized = document.getElementById("sterilized-check");
+	let yes = document.getElementById("sterilized-yes-check");
+	let no = document.getElementById("sterilized-no-check");
+
+	if(sterilized.checked==true){
+		yes.disabled = false;	
+		yes.checked = true;
+		no.disabled = false;
+	}else if(sterilized.checked==false){
+		yes.disabled = true;
+		no.disabled = true;
+		yes.checked = false;
+		no.checked = false;
+	}
+}
+
+//Apply filters
+document.getElementById("filter-button").onclick = function () {
+	let specie = document.getElementById("specie-check").value;
+	let sex = document.getElementById("sex-check").value;
+	let size = document.getElementById("size-check").value;
+	let dangerous = document.getElementById("dangerous-check").value;
+	let microchip = document.getElementById("microchip-check").value;
+	let sterilized = document.getElementById("sterilized-check").value;
+}
