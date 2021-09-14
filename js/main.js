@@ -24,12 +24,8 @@ request.onsuccess = function(event) {
 		for(var i = 0, length1 = pets.length; i < length1; i++){
 			let pet = pets[i];
 			rowId=pet.id;
-			let tr = document.createElement("tr");
-			tr.setAttribute("id", "row-" + rowId);
-			let tdId = document.createElement("td");
-			tdId.innerHTML = pet.id;
-			tr.appendChild(tdId);
 			delete pet.id;
+			let tr = document.createElement("tr");
 			Object.keys(pet).forEach((key) => {
 				let td = document.createElement("td");
 				td.innerHTML = pet[key];
@@ -100,11 +96,6 @@ document.getElementById("create-button").onclick = function () {
 
 	  	//Add object to the list
 		let tr = document.createElement("tr");
-		tr.setAttribute("id", "row-" + rowId);
-
-		let tdId = document.createElement("td");
-		tdId.innerHTML = rowId;
-		tr.appendChild(tdId);
 
 		Object.keys(pet).forEach((key) => {
 			console.log(key);
@@ -121,7 +112,10 @@ document.getElementById("create-button").onclick = function () {
 	}
 
 };
-
+//Edit register
+document.getElementById("edit-button").onclick = function(){
+	window.open("edit.html", "Ciudadanos de 4 patas", "width=800,height=600,scrollbars=NO");
+}
 
 //List filters
 
@@ -240,6 +234,7 @@ document.getElementById("sterilized-check").onclick = function () {
 }
 
 //Apply filters
+
 document.getElementById("filter-button").onclick = function () {
 	let specie = document.getElementById("specie-check").checked;
 	let sex = document.getElementById("sex-check").checked;
@@ -257,30 +252,48 @@ document.getElementById("filter-button").onclick = function () {
 			filterBy("Felino");
 		}
 	}	
-}
-//https://es.stackoverflow.com/questions/112419/como-filtrar-una-tabla-con-multiples-columnas-con-javascript
-function filterBy(input) {
-  var filter, table, tr, td, i, j, visible;
-  filter = input;
-  table = document.getElementById("body-table");
-  tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-  	console.log(tr);
-    visible = false;
-    /* Obtenemos todas las celdas de la fila, no sólo la primera */
-    td = tr[i].getElementsByTagName("td");
-    for (j = 0; j < td.length; j++) {
-      if (td[j] && td[j].innerHTML.indexOf(filter) > -1) {
-        visible = true;
-      }
-    }
-    if (visible === true) {
-      tr[i].style.display = "";
-    } else {
-      tr[i].style.display = "none";
-    }
-  }
+	if (sex) {
+		let male = document.getElementById("sex-male-check");
+		let female = document.getElementById("sex-female-check");
+		if (male.checked) {
+			filterBy("Macho");	
+		}else if(female.checked){
+			filterBy("Hembra");
+		}
+	}	
+
+	if (size) {
+		let mini = document.getElementById("size-mini-check");
+		let small = document.getElementById("size-small-check");
+		let medium = document.getElementById("size-medium-check");
+		let big = document.getElementById("size-big-check");
+		if (mini.checked) {
+			filterBy("Miniatura");	
+		}else if(small.checked){
+			filterBy("Pequeño");
+		}else if(medium.checked){
+			filterBy("Mediano");
+		}else if(big.checked){
+			filterBy("Grande");
+		}
+	}	
+}
+
+function filterBy(buscar){
+
+	document.querySelectorAll('.table tbody tr').forEach(function(e){
+	  var encontro = false;
+	  e.querySelectorAll('td').forEach(function(e){
+	    if (e.innerHTML.indexOf(buscar)>=0){
+	      encontro = true;
+	    }
+	  }); 
+	  if (encontro){
+	    e.style.display = '';
+	  }else{
+	    e.style.display = 'none';
+	  }
+	});
 
 }

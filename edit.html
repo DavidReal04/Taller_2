@@ -1,0 +1,94 @@
+<html>
+	<head>
+		<!--Conexión con Bootstrap-->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+		<title>Formulario de Edición</title>
+	</head>
+	<body>
+	
+		<h1 class="display-5">Formulario de Edición</h1>
+		<!--Formulario de registro-->
+		<div class="d-grid gap-3">
+			<div class="p-2 bg-light border">
+				<div class="container ">
+					<div class="row">
+						<h4>Formulario</h4>
+						<div class="col">
+							<div>
+								<label>Id</label>
+								<input id="id-input" type="text">
+								<button id="search-button" class="btn btn-primary">Buscar</button>
+							</div>
+						</div>
+					</div>
+					&NonBreakingSpace;
+					<!--Campos de Edición de Registro-->
+					<div class="row">
+						<div class="col col-sm-3">
+							<div>
+								<label>Tama&ntilde;o</label>
+								<select name="size" id="petsize-select">
+									<option selected disabled>No Registrado</option>
+									<option>Miniatura</option>
+									<option>Peque&ntilde;o</option>
+									<option>Mediano</option>
+									<option>Grande</option>
+								</select>
+							</div>
+						</div>
+						<div class="col col-sm-3">
+							<div>
+								<label>Potencialmente peligroso</label>
+								<select name="dangerous" id="petdanger-select">
+									<option selected disabled>No Registrado</option>
+									<option>Si</option>
+									<option>No</option>
+								</select>
+							</div>
+						</div>
+						<div class="col col-sm-2">
+							<div>
+								<label>Localidad</label>
+								<select name="neighborhood" id="petneighborhood-select">
+									<option selected disabled>No Registrado</option>
+									<option>USAQUEN</option>
+									<option>CHAPINERO</option>
+									<option>SANTA FE</option>
+									<option>SAN CRISTOBAL</option>
+									<option>USME</option>
+									<option>TUNJUELITO</option>
+									<option>BOSA</option>
+									<option>KENNEDY</option>
+									<option>FONTIBON</option>
+									<option>ENGATIVA</option>
+									<option>SUBA</option>
+									<option>B. UNIDOS</option>
+									<option>TEUSAQUILLO</option>
+									<option>LOS MARTIRES</option>
+									<option>A. NARINO</option>
+									<option>P. ARANDA</option>
+									<option>LA CANDELARIA</option>
+									<option>R. URIBE</option>
+									<option>C. BOLIVAR</option>
+									<option>SUMAPAZ</option>
+									<option>MUNICIPIOS ALEDA&Ntilde;OS BOGOTA D.C.</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					&NonBreakingSpace;
+					<div class="row">
+						<div class="col">
+							<!--Botón de registro-->
+							<div>
+								<button id="refresh-button" type="submit" class="btn btn-primary">Actualizar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Scripts-->
+		<script src="./js/editReg.js"></script>
+	</body>
+</html>
