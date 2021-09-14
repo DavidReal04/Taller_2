@@ -92,19 +92,15 @@ document.getElementById("create-button").onclick = function () {
 	    	var customerObjectStore = db.transaction("pets", "readwrite").objectStore("pets");
 		    pet["id"] = rowId;
 		    customerObjectStore.add(pet);
-	  	};
+	  };
 
-	  	//Add object to the list
+	  //Add object to the list
 		let tr = document.createElement("tr");
 
 		Object.keys(pet).forEach((key) => {
-			console.log(key);
-
 			let td = document.createElement("td");
 			td.innerHTML = pet[key];
-
 			tr.appendChild(td);
-
 		});
 		document.getElementById("body-table").appendChild(tr);
 	} catch(e) {
