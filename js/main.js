@@ -242,28 +242,37 @@ document.getElementById("sterilized-check").onclick = function () {
 //Apply filters
 document.getElementById("filter-button").onclick = function () {
 	let specie = document.getElementById("specie-check").checked;
-	let sex = document.getElementById("sex-check").value;
-	let size = document.getElementById("size-check").value;
-	let dangerous = document.getElementById("dangerous-check").value;
-	let microchip = document.getElementById("microchip-check").value;
-	let sterilized = document.getElementById("sterilized-check").value;
-	console.log(specie);
-	filterBy(specie);
-}
+	let sex = document.getElementById("sex-check").checked;
+	let size = document.getElementById("size-check").checked;
+	let dangerous = document.getElementById("dangerous-check").checked;
+	let microchip = document.getElementById("microchip-check").checked;
+	let sterilized = document.getElementById("sterilized-check").checked;
 
+	if (specie) {
+		let canine = document.getElementById("specie-canine-check");
+		let feline = document.getElementById("specie-feline-check");
+		if (canine.checked) {
+			filterBy("Canino");	
+		}else if(feline.checked){
+			filterBy("Felino");
+		}
+	}	
+}
+//https://es.stackoverflow.com/questions/112419/como-filtrar-una-tabla-con-multiples-columnas-con-javascript
 function filterBy(input) {
   var filter, table, tr, td, i, j, visible;
-  filter = input.toUpperCase();
-  table = document.getElementById("myTable");
+  filter = input;
+  table = document.getElementById("body-table");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
+  	console.log(tr);
     visible = false;
     /* Obtenemos todas las celdas de la fila, no sólo la primera */
     td = tr[i].getElementsByTagName("td");
     for (j = 0; j < td.length; j++) {
-      if (td[j] && td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+      if (td[j] && td[j].innerHTML.indexOf(filter) > -1) {
         visible = true;
       }
     }
@@ -273,4 +282,5 @@ function filterBy(input) {
       tr[i].style.display = "none";
     }
   }
+
 }
