@@ -2,7 +2,6 @@ var rowId = 0;
 var indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB || window.shimIndexedDB;
 const dbName = "petDB";
 var request = indexedDB.open(dbName, 1);
-
 //Conection whith indexedDB
 request.onerror = function(event) {
   console.log("Database error");
@@ -19,12 +18,31 @@ request.onsuccess = function(event) {
 	var db = event.target.result;
 	var tx = db.transaction("pets");
 	var objectStore = tx.objectStore("pets");
-	objectStore.getAll().onsuccess = function(event) {
-	  console.log(event.target.result);
-	  rowId = event.target.result.length;
+		objectStore.getAll().onsuccess = function(event) {
+		//Keep table info on reload
+		let pets = event.target.result;
+		for(var i = 0, length1 = pets.length; i < length1; i++){
+			let pet = pets[i];
+			rowId=pet.id;
+			let tr = document.createElement("tr");
+			tr.setAttribute("id", "row-" + rowId);
+			let tdId = document.createElement("td");
+			tdId.innerHTML = pet.id;
+			tr.appendChild(tdId);
+			delete pet.id;
+			Object.keys(pet).forEach((key) => {
+				let td = document.createElement("td");
+				td.innerHTML = pet[key];
+				tr.appendChild(td);
+			});
+			document.getElementById("body-table").appendChild(tr);
+		}
+		
 	};
+	
 };
 
+	
 // New Exceptions
 class DateError extends Error {
   constructor(message) {
@@ -97,7 +115,6 @@ document.getElementById("create-button").onclick = function () {
 			tr.appendChild(td);
 
 		});
-
 		document.getElementById("body-table").appendChild(tr);
 	} catch(e) {
 		alert(e.message);
@@ -224,10 +241,36 @@ document.getElementById("sterilized-check").onclick = function () {
 
 //Apply filters
 document.getElementById("filter-button").onclick = function () {
-	let specie = document.getElementById("specie-check").value;
+	let specie = document.getElementById("specie-check").checked;
 	let sex = document.getElementById("sex-check").value;
 	let size = document.getElementById("size-check").value;
 	let dangerous = document.getElementById("dangerous-check").value;
 	let microchip = document.getElementById("microchip-check").value;
 	let sterilized = document.getElementById("sterilized-check").value;
+	console.log(specie);
+	filterBy(specie);
+}
+
+function filterBy(input) {
+  var filter, table, tr, td, i, j, visible;
+  filter = input.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    visible = false;
+    /* Obtenemos todas las celdas de la fila, no sólo la primera */
+    td = tr[i].getElementsByTagName("td");
+    for (j = 0; j < td.length; j++) {
+      if (td[j] && td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+        visible = true;
+      }
+    }
+    if (visible === true) {
+      tr[i].style.display = "";
+    } else {
+      tr[i].style.display = "none";
+    }
+  }
 }
