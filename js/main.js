@@ -181,7 +181,7 @@ document.getElementById("search-button").onclick = function () {
 	  			document.getElementById("edit-petsterilized-select").value = sterilized;
 	  			
 	  			document.getElementById("edit-microchip-input").disabled = true;
-	  			document.getElementById("edit-petsterilized-select").disabled = true;
+	  			document.getElementById("edit-petsterilized-select").disabled = false;
 	  			document.getElementById("edit-save-btn").disabled = false;
 
 	  			document.getElementById("id-input").disabled = true;
