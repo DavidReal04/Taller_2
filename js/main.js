@@ -86,7 +86,6 @@ document.getElementById("create-button").onclick = function () {
 			petSterilized: document.getElementById("petsterilized-select").value,
 			petNeighborhood: document.getElementById("petneighborhood-select").value,
 		}
-		console.log(imgsrc);
 		//Add register to the database
 		var request = indexedDB.open(dbName, 1);
 	 	request.onsuccess = function(event) {
