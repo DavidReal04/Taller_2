@@ -71,6 +71,8 @@ document.getElementById("create-button").onclick = function () {
 
 		rowId += 1;
 
+		let specie = document.getElementById("petspecie-select").value;
+
 		//Create object Pet
 		let pet = {
 			dateInput: document.getElementById("date-input").value,
@@ -78,13 +80,13 @@ document.getElementById("create-button").onclick = function () {
 			petName: document.getElementById("petName-input").value,
 			microchip: document.getElementById("microchip-input").value,
 			petSpecies: document.getElementById("petspecie-select").value,
-			petSex:document.getElementById("petsex-select").value,
+			petSex: document.getElementById("petsex-select").value,
 			petSize: document.getElementById("petsize-select").value,
 			petDanger: document.getElementById("petdanger-select").value,
 			petSterilized: document.getElementById("petsterilized-select").value,
-			petNeighborhood: document.getElementById("petneighborhood-select").value
+			petNeighborhood: document.getElementById("petneighborhood-select").value,
 		}
-		
+		console.log(imgsrc);
 		//Add register to the database
 		var request = indexedDB.open(dbName, 1);
 	 	request.onsuccess = function(event) {
