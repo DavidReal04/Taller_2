@@ -573,20 +573,20 @@ document.getElementById("filter-button").onclick = function () {
 			}else if (!specie && !sex && !size && dangerous && microchip && !sterilized) {
 				if (dangeryes.checked && microyes.checked) {
 					petsFilter = pets.filter(pet => pet.petDanger == "Si" && pet.microchip != "");	
-				}else if (dangerno.checked && microno.checked) {
-					petsFilter = pets.filter(pet => pet.petDanger == "No" && pet.microchip == "");
-				}else if(dangeryes.checked && microyes.checked){
-					petsFilter = pets.filter(pet => pet.petDanger == "Si" && pet.microchip != "");
+				}else if (dangerno.checked && microyes.checked) {
+					petsFilter = pets.filter(pet => pet.petDanger == "No" && pet.microchip != "");
+				}else if(dangeryes.checked && microno.checked){
+					petsFilter = pets.filter(pet => pet.petDanger == "Si" && pet.microchip == "");
 				}else if(dangerno.checked && microno.checked){
 					petsFilter = pets.filter(pet => pet.petDanger == "No" && pet.microchip == "");
 				}
 			}else if (!specie && !sex && !size && dangerous && !microchip && sterilized) {
 				if (dangeryes.checked && steryes.checked) {
 					petsFilter = pets.filter(pet => pet.petDanger == "Si" && pet.petSterilized == "Si");	
-				}else if (dangerno.checked && sterno.checked) {
-					petsFilter = pets.filter(pet => pet.petDanger == "No" && pet.petSterilized == "No");
-				}else if(dangeryes.checked && steryes.checked){
-					petsFilter = pets.filter(pet => pet.petDanger == "Si" && pet.petSterilized == "Si");
+				}else if (dangeryes.checked && sterno.checked) {
+					petsFilter = pets.filter(pet => pet.petDanger == "Si" && pet.petSterilized == "No");
+				}else if(dangerno.checked && steryes.checked){
+					petsFilter = pets.filter(pet => pet.petDanger == "No" && pet.petSterilized == "Si");
 				}else if(dangerno.checked && sterno.checked){
 					petsFilter = pets.filter(pet => pet.petDanger == "No" && pet.petSterilized == "No");
 				}
