@@ -158,6 +158,55 @@
 								<!--Botón de acciones-->
 								<button id="edit-button" class="btn btn-primary">Editar Registro</button>
 							</div>
+							<!-- Botón Agregar Microchip y esterilizar -->
+							<button id="add-microchip-esterilize-button" type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#locModal">Agregar Chip & Esterilizar</button>
+							 <!-- Modal -->
+							 <div class="modal fade" id="locModal" tabindex="-1" role="dialog" aria-labelledby="locModalLabel"
+							        aria-hidden="true">
+							    <div class="modal-dialog" role="document">
+							 	   <div class="modal-content">
+							    		<div class="modal-header">
+							            	<h5 class="modal-title" id="locModalLabel">Agregar Chip & Esterilizar</h5>
+							            </div>
+							            <div class="modal-body">
+							                <div class="container">
+							                	<div class="row">
+							                		<div class="col">
+							                			<div>
+							                				<label>Posición</label>
+							                				<input id="id-input" type="Number" min="1">
+							                				<button id="search-button" class="btn btn-primary">Buscar</button>
+							                			</div>
+							                		</div>
+							                	</div>
+							                	&NonBreakingSpace;
+							                	<div class="row">
+							                		<div class="col col-sm-6">
+							                			<div>
+							                				<label>Microchip</label>
+							                				<input name="edit-microchip" id="edit-microchip-input" type="number" min="0" disabled/>
+							                			</div>
+							                		</div>
+							                		<div class="col col-sm-2">
+							                			<div>
+							                				<label>Esterilizado</label>
+							                				<select name="edit-sterilized" id="edit-petsterilized-select" disabled>
+							                					<option selected disabled>No Registrado</option>
+							                					<option>Si</option>
+							                					<option>No</option>
+							                				</select>
+							                			</div>
+							                		</div>
+							                	</div>
+							                </div>
+							            </div>
+							            <div class="modal-footer">
+							                <button id="edit-close" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+							            	<button id="edit-save-btn" type="button" class="btn btn-primary" disabled>Guardar Registro</button>
+							         	</div>
+							    	</div>
+							    </div>
+							</div>
 							&NonBreakingSpace;
 							<!--Filtros-->
 							<h4>Filtros</h4>

@@ -108,10 +108,89 @@ document.getElementById("create-button").onclick = function () {
 	}
 
 };
+
 //Edit register
 document.getElementById("edit-button").onclick = function(){
-	window.open("edit.html", "Ciudadanos de 4 patas", "width=800,height=600,scrollbars=NO");
+	window.open("edit.html", "Ciudadanos de 4 patas", "width=800,height=350,scrollbars=NO");
 }
+
+//Modal Edit Microchip & Esterilized
+
+var locModal = document.getElementById('locModal');
+var btnclose = document.getElementById('edit-close');
+var btnShow= document.getElementById('add-microchip-esterilize-button');
+
+
+//Show Modal
+btnShow.addEventListener('click', (e) => {
+    locModal.style.display = "block";
+    locModal.style.paddingRight = "17px";
+    locModal.className="modal fade show";
+    document.getElementById("edit-microchip-input").disabled = true;
+    document.getElementById("edit-petsterilized-select").disabled = true;
+    document.getElementById("edit-save-btn").disabled = true;
+
+    document.getElementById("id-input").value = "";
+    document.getElementById("id-input").disabled = false;
+    document.getElementById("search-button").disabled = false;
+});
+    //Hide Modal
+    btnclose.addEventListener('click', (e) => {
+        locModal.style.display = "none";
+        locModal.className="modal fade";
+});
+
+document.getElementById("search-button").onclick = function () {
+	var pos = document.getElementById("id-input").value -1;
+	var request = indexedDB.open(dbName, 1);
+	request.onsuccess = function(event) {
+		var db = event.target.result;
+		var tx = db.transaction("pets");
+		var objectStore = tx.objectStore("pets");
+		objectStore.getAll().onsuccess = function(event) {
+	  		let pets = event.target.result;
+	  		let pet = pets[pos];
+	  		let microchip = pet.microchip;
+	  		let sterilized = pet.petSterilized;
+
+	  		if(pet.microchip=="" && pet.petSterilized!="Si"){
+	  			document.getElementById("edit-microchip-input").value = microchip;
+	  			document.getElementById("edit-petsterilized-select").value = sterilized;
+	  			
+	  			document.getElementById("edit-microchip-input").disabled = false;
+	  			document.getElementById("edit-petsterilized-select").disabled = false;
+	  			document.getElementById("edit-save-btn").disabled = false;
+
+	  			document.getElementById("id-input").disabled = true;
+	  			document.getElementById("search-button").disabled = true;
+	  		}else if(pet.microchip=="" && pet.petSterilized=="Si"){
+	  			document.getElementById("edit-microchip-input").value = microchip;
+	  			document.getElementById("edit-petsterilized-select").value = sterilized;
+	  			
+	  			document.getElementById("edit-microchip-input").disabled = false;
+	  			document.getElementById("edit-petsterilized-select").disabled = true;
+	  			document.getElementById("edit-save-btn").disabled = false;
+
+	  			document.getElementById("id-input").disabled = true;
+	  			document.getElementById("search-button").disabled = true;
+	  		}else if(pet.microchip!="" && pet.petSterilized!="Si"){
+	  			document.getElementById("edit-microchip-input").value = microchip;
+	  			document.getElementById("edit-petsterilized-select").value = sterilized;
+	  			
+	  			document.getElementById("edit-microchip-input").disabled = true;
+	  			document.getElementById("edit-petsterilized-select").disabled = true;
+	  			document.getElementById("edit-save-btn").disabled = false;
+
+	  			document.getElementById("id-input").disabled = true;
+	  			document.getElementById("search-button").disabled = true;
+	  		}else{
+	  			alert("Ingrese una mascota válida");
+	  		}
+	  		
+	  	};
+	};
+}
+
 
 //List filters
 
@@ -239,57 +318,80 @@ document.getElementById("filter-button").onclick = function () {
 	let microchip = document.getElementById("microchip-check").checked;
 	let sterilized = document.getElementById("sterilized-check").checked;
 
-	if (specie) {
-		let canine = document.getElementById("specie-canine-check");
-		let feline = document.getElementById("specie-feline-check");
-		if (canine.checked) {
-			filterBy("Canino");	
-		}else if(feline.checked){
-			filterBy("Felino");
-		}
-	}	
+	var request = indexedDB.open(dbName, 1);
+	request.onsuccess = function(event) {
+		var db = event.target.result;
+		var tx = db.transaction("pets");
+		var objectStore = tx.objectStore("pets");
+			objectStore.getAll().onsuccess = function(event) {
+			let pets = event.target.result;
+			let petsFilter;
+			if(!specie && !sex && !size && !dangerous && !microchip && !sterilized){
+				petsFilter = pets;
+			}else if (specie && !sex && !size && !dangerous && !microchip && !sterilized) {
+				let canine = document.getElementById("specie-canine-check");
+				let feline = document.getElementById("specie-feline-check");
+				if (canine.checked) {
+					petsFilter = pets.filter(pet => pet.petSpecies == "Canino");	
+				}else if(feline.checked){
+					petsFilter = pets.filter(pet => pet.petSpecies == "Felino");
+				}
+				console.log(petsFilter);
+			}else	if (!specie && sex && !size && !dangerous && !microchip && !sterilized) {
+				let male = document.getElementById("sex-male-check");
+				let female = document.getElementById("sex-female-check");
+				if (male.checked) {
+					petsFilter = pets.filter(pet => pet.petSex == "Macho");
+				}else if(female.checked){
+					petsFilter = pets.filter(pet => pet.petSex == "Hembra");
+				}
+			}else if (!specie && !sex && size && !dangerous && !microchip && !sterilized) {
+				let mini = document.getElementById("size-mini-check");
+				let small = document.getElementById("size-small-check");
+				let medium = document.getElementById("size-medium-check");
+				let big = document.getElementById("size-big-check");
+				if (mini.checked) {
+					petsFilter = pets.filter(pet => pet.petSize == "Miniatura");
+				}else if(small.checked){
+					petsFilter = pets.filter(pet => pet.petSize == "Pequeño");
+				}else if(medium.checked){
+					petsFilter = pets.filter(pet => pet.petSize == "Mediano");
+				}else if(big.checked){
+					petsFilter = pets.filter(pet => pet.petSize == "Grande");
+				}
+			}else if (!specie && !sex && !size && dangerous && !microchip && !sterilized) {
+				let yes = document.getElementById("dangerous-yes-check");
+				let no = document.getElementById("dangerous-no-check");
+				if (yes.checked){
+					petsFilter = pets.filter(pet => pet.petDanger == "Si");
+				}else if (no.checked){
+					petsFilter = pets.filter(pet => pet.petDanger == "No");
+				}
+			}else if (!specie && !sex && !size && !dangerous && microchip && !sterilized) {
+				let yes = document.getElementById("microchip-yes-check");
+				let no = document.getElementById("microchip-no-check");
+				if (yes.checked){
+					petsFilter = pets.filter(pet => pet.petMicrochip == "Si");
+				}else if (no.checked){
+					petsFilter = pets.filter(pet => pet.petMicrochip == "No");
+				}
+			}
 
-	if (sex) {
-		let male = document.getElementById("sex-male-check");
-		let female = document.getElementById("sex-female-check");
-		if (male.checked) {
-			filterBy("Macho");	
-		}else if(female.checked){
-			filterBy("Hembra");
-		}
-	}	
+			var Table = document.getElementById("body-table");
+			Table.innerHTML = "";
 
-	if (size) {
-		let mini = document.getElementById("size-mini-check");
-		let small = document.getElementById("size-small-check");
-		let medium = document.getElementById("size-medium-check");
-		let big = document.getElementById("size-big-check");
-		if (mini.checked) {
-			filterBy("Miniatura");	
-		}else if(small.checked){
-			filterBy("Pequeño");
-		}else if(medium.checked){
-			filterBy("Mediano");
-		}else if(big.checked){
-			filterBy("Grande");
-		}
-	}	
-}
-
-function filterBy(buscar){
-
-	document.querySelectorAll('.table tbody tr').forEach(function(e){
-	  var encontro = false;
-	  e.querySelectorAll('td').forEach(function(e){
-	    if (e.innerHTML.indexOf(buscar)>=0){
-	      encontro = true;
-	    }
-	  }); 
-	  if (encontro){
-	    e.style.display = '';
-	  }else{
-	    e.style.display = 'none';
-	  }
-	});
+			for(var i = 0, length1 = petsFilter.length; i < length1; i++){
+				let pet = petsFilter[i];
+				delete pet.id;
+				let tr = document.createElement("tr");
+				Object.keys(pet).forEach((key) => {
+					let td = document.createElement("td");
+					td.innerHTML = pet[key];
+					tr.appendChild(td);
+				});
+				document.getElementById("body-table").appendChild(tr);
+			}
+		};
+	};
 
 }
